@@ -1,23 +1,37 @@
 import client from "../../client"
+import imageUrlBuilder from '@sanity/image-url'
 import BlockContent from '@sanity/block-content-to-react'
+
+function urlFor(source) {
+  return imageUrlBuilder(client).image(source);
+}
 
 function Post(props) {
   const {
     title = "Missing title",
     name = "Missing name",
     categories,
+    authorImage,
     body = []
   } = props;
   return (
     <article>
       <h1>{title}</h1>
       <span>By {name}</span>
+
+      {authorImage && (
+        <div>
+          <img src={urlFor(authorImage).width(50).url()}/>
+        </div>
+      )}
+
       {categories && (
         <ul>
           Posted in
           {categories.map(category => <li key={category}>{category}</li>)}
         </ul>
       )}
+
       <BlockContent
         blocks={body}
         {...client.config()}
@@ -30,6 +44,7 @@ const query = `*[_type == "post" && slug.current == $slug][0]{
   title,
   "name": author->name,
   "categories": categories[]->title,
+  "authorImage": author->image,
   body
 }`;
 
