@@ -50,15 +50,13 @@ export default {
       title: 'Published at',
       type: 'datetime',
     },
-    /*
     {
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
+      name: 'desc',
+      title: 'Description',
+      type: 'text',
     },
-    */
     {
-      name: 'portableTextWithLatex',
+      name: 'content',
       type: 'array',
       title: 'Body',
       of: [
