@@ -20,13 +20,6 @@ function Index(props) {
     </div>
   );
 }
-/*
-const query = `*[_type == "post" && publishedAt < now()]|order(publishedAt desc)`;
-
-Index.getInitialProps = async function() {
-  return await client.fetch(query);
-}
-*/
 
 Index.getInitialProps = async () => ({
     posts: await client.fetch(`
