@@ -12,8 +12,10 @@ function Post(props) {
     name = "Missing name",
     categories,
     authorImage,
+    portableTextWithLatex = [],
     body = []
   } = props;
+
   return (
     <article>
       <h1>{title}</h1>
@@ -33,7 +35,8 @@ function Post(props) {
       )}
 
       <BlockContent
-        blocks={body}
+        blocks={portableTextWithLatex}
+        imageOptions={{ w: 320, h: 240, fit: 'max' }}
         {...client.config()}
       />
     </article>
@@ -45,6 +48,7 @@ const query = `*[_type == "post" && slug.current == $slug][0]{
   "name": author->name,
   "categories": categories[]->title,
   "authorImage": author->image,
+  portableTextWithLatex,
   body
 }`;
 

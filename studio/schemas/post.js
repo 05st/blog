@@ -1,3 +1,11 @@
+import React from 'react'
+const mathInlineIcon = () => (
+  <span>
+    <span style={{ fontWeight: 'bold' }}>∑</span>b
+  </span>
+)
+const mathIcon = () => <span style={{ fontWeight: 'bold' }}>∑</span>
+
 export default {
   name: 'post',
   title: 'Post',
@@ -42,10 +50,28 @@ export default {
       title: 'Published at',
       type: 'datetime',
     },
+    /*
     {
       name: 'body',
       title: 'Body',
       type: 'blockContent',
+    },
+    */
+    {
+      name: 'portableTextWithLatex',
+      type: 'array',
+      title: 'Body',
+      of: [
+        {
+          type: 'block',
+          title: 'Block',
+          of: [
+            { type: 'latex', title: 'Inline LaTeX', icon: mathInlineIcon },
+          ],
+        },
+        { type: 'latex', title: 'LaTeX Block', icon: mathIcon },
+        { type: 'code', title: 'Code Block' },
+      ],
     },
   ],
 
