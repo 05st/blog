@@ -14,9 +14,12 @@
   "dependencies": {
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.16.0",
+    "github-markdown-css": "^4.0.0",
     "next": "^11.1.0",
+    "next-transpile-modules": "^8.0.0",
     "react-latex": "^2.0.0",
-    "react-latex-next": "^2.1.0"
+    "react-latex-next": "^2.1.0",
+    "react-syntax-highlighter": "^15.4.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.3",

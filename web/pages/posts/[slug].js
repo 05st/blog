@@ -2,14 +2,17 @@ import client from "../../client";
 import imageUrlBuilder from "@sanity/image-url";
 import BlockContent from "@sanity/block-content-to-react";
 import Latex from "react-latex";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import "github-markdown-css";
 import 'katex/dist/katex.min.css'
 
 const serializers = {
   types: {
     code: (props) => (
-      <pre data-language={props.node.language}>
-        <code>{props.node.code}</code>
-      </pre>
+      <SyntaxHighlighter language={props.node.language} style={docco}>
+        {props.node.code}
+      </SyntaxHighlighter>
     ),
     latex: (props) => (
       <Latex>{"$"+props.node.body+"$"}</Latex>
@@ -47,13 +50,15 @@ function Post(props) {
           {categories.map(category => <li key={category}>{category}</li>)}
         </ul>
       )}
-
-      <BlockContent
-        blocks={content}
-        imageOptions={{ w: 320, h: 240, fit: 'max' }}
-        serializers={serializers}
-        {...client.config()}
-      />
+      <div>
+        <BlockContent
+          className="markdown-body"
+          blocks={content}
+          imageOptions={{ w: 320, h: 240, fit: 'max' }}
+          serializers={serializers}
+          {...client.config()}
+        />
+      </div>
     </article>
   );
 }
