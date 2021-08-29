@@ -1,6 +1,21 @@
-import client from "../../client"
-import imageUrlBuilder from '@sanity/image-url'
-import BlockContent from '@sanity/block-content-to-react'
+import client from "../../client";
+import imageUrlBuilder from "@sanity/image-url";
+import BlockContent from "@sanity/block-content-to-react";
+import Latex from "react-latex";
+import 'katex/dist/katex.min.css'
+
+const serializers = {
+  types: {
+    code: (props) => (
+      <pre data-language={props.node.language}>
+        <code>{props.node.code}</code>
+      </pre>
+    ),
+    latex: (props) => (
+      <Latex>{"$"+props.node.body+"$"}</Latex>
+    ),
+  },
+};
 
 function urlFor(source) {
   return imageUrlBuilder(client).image(source);
@@ -12,8 +27,7 @@ function Post(props) {
     name = "Missing name",
     categories,
     authorImage,
-    portableTextWithLatex = [],
-    body = []
+    content = []
   } = props;
 
   return (
@@ -35,8 +49,9 @@ function Post(props) {
       )}
 
       <BlockContent
-        blocks={portableTextWithLatex}
+        blocks={content}
         imageOptions={{ w: 320, h: 240, fit: 'max' }}
+        serializers={serializers}
         {...client.config()}
       />
     </article>
@@ -48,8 +63,7 @@ const query = `*[_type == "post" && slug.current == $slug][0]{
   "name": author->name,
   "categories": categories[]->title,
   "authorImage": author->image,
-  portableTextWithLatex,
-  body
+  content
 }`;
 
 Post.getInitialProps = async function(ctx) {
