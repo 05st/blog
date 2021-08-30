@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 import client from "../../client";
 import imageUrlBuilder from "@sanity/image-url";
@@ -46,9 +47,10 @@ function Post(props) {
   const {
     title = "Missing title",
     desc = "Missing description",
-    name = "Missing name",
+    name = "Missing author name",
     categories = [],
-    authorImage,
+    authorImage = "",
+    authorSlug = "",
     content = []
   } = props;
 
@@ -65,7 +67,11 @@ function Post(props) {
         <p className="text-gray-300">{categories && categories.sort().join(", ")}</p>
         <h1 className="font-bold text-4xl">{title}</h1>
         <div className="flex flex-row space-x-2">
-          <p><span className="font-bold">By</span> {name}</p>
+          <p><span className="font-bold">By </span>
+            <Link href="/author/[slug]" as={`/author/${authorSlug.current}`}>
+              <a className="hover:underline">{name}</a>
+            </Link>
+          </p>
           {authorImage && (
             <div className="rounded-full overflow-hidden w-6 h-6">
               <img src={urlFor(authorImage).url()}/>
@@ -94,6 +100,7 @@ const query = `*[_type == "post" && slug.current == $slug][0]{
   "name": author->name,
   "categories": categories[]->title,
   "authorImage": author->image,
+  "authorSlug": author->slug,
   content
 }`;
 
