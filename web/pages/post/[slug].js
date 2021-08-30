@@ -63,31 +63,31 @@ function Post(props) {
         <meta property="og:site_name" content="blog.stimsina.com"/>
         <meta property="og:description" content={desc}/>
       </Head>
-      <div className="flex flex-col w-full lg:w-1/2">
-        <p className="text-gray-300">{categories && categories.sort().join(", ")}</p>
-        <h1 className="font-bold text-4xl">{title}</h1>
-        <div className="flex flex-row space-x-2">
-          <p><span className="font-bold">By </span>
-            <Link href="/author/[slug]" as={`/author/${authorSlug.current}`}>
-              <a className="hover:underline">{name}</a>
-            </Link>
-          </p>
-          {authorImage && (
-            <div className="rounded-full overflow-hidden w-6 h-6">
-              <img src={urlFor(authorImage).url()}/>
-            </div>
-          )}
+      <div className="flex flex-col w-full space-y-4 lg:w-1/2">
+        <div>
+          <p className="text-gray-300">{categories && categories.sort().join(", ")}</p>
+          <h1 className="font-bold text-4xl">{title}</h1>
+          <div className="flex flex-row space-x-2">
+            <p><span className="font-bold">By </span>
+              <Link href="/author/[slug]" as={`/author/${authorSlug.current}`}>
+                <a className="hover:underline">{name}</a>
+              </Link>
+            </p>
+            {authorImage && (
+              <div className="rounded-full overflow-hidden w-6 h-6">
+                <img src={urlFor(authorImage).url()}/>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col items-center">
-        <div className="w-full lg:w-1/2">
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous"/>
-          <BlockContent
-            blocks={content}
-            imageOptions={{ w: 320, h: 240, fit: 'max' }}
-            serializers={serializers}
-            {...client.config()}
-          />
+        <div className="overflow-scroll-auto">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous"/>
+            <BlockContent
+              blocks={content}
+              imageOptions={{ w: 320, h: 240, fit: 'max' }}
+              serializers={serializers}
+              {...client.config()}
+            />
         </div>
       </div>
     </div>
