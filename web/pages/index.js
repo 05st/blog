@@ -35,7 +35,7 @@ function PostListing(props) {
             </div>
             <p>{desc}</p>
             <p className="my-auto text-gray-300 text-sm truncate overflow-hidden whitespace-nowrap">
-              {categories.join(", ")}
+              {categories.sort().join(", ")}
             </p>
           </div>
         </a></Link>

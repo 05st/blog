@@ -47,7 +47,7 @@ function Post(props) {
     title = "Missing title",
     desc = "Missing description",
     name = "Missing name",
-    categories,
+    categories = [],
     authorImage,
     content = []
   } = props;
@@ -62,7 +62,7 @@ function Post(props) {
         <meta property="og:description" content={desc}/>
       </Head>
       <div className="flex flex-col w-full lg:w-1/2">
-        <p className="text-gray-300">{categories && categories.join(", ")}</p>
+        <p className="text-gray-300">{categories && categories.sort().join(", ")}</p>
         <h1 className="font-bold text-4xl">{title}</h1>
         <div className="flex flex-row space-x-2">
           <p><span className="font-bold">By</span> {name}</p>
