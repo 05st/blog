@@ -2,9 +2,21 @@ import client from "../../client";
 import imageUrlBuilder from "@sanity/image-url";
 import BlockContent from "@sanity/block-content-to-react";
 import PostsList from "../../components/postslist";
+import Head from "next/head";
 
 function urlFor(source) {
   return imageUrlBuilder(client).image(source);
+}
+
+function toPlainText(blocks = []) {
+  return blocks
+    .map(block => {
+      if (block._type !== 'block' || !block.children) {
+        return ''
+      }
+      return block.children.map(child => child.text).join('')
+    })
+    .join('\n')
 }
 
 function Author(props) {
@@ -15,6 +27,13 @@ function Author(props) {
   } = props;
   return (
     <div className="relative top-16 flex flex-col items-center">
+      <Head>
+        <title>{name} | Blog</title>
+        <meta property="og:title" content={name + " | Blog"} key="title"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:site_name" content="blog.stimsina.com"/>
+        <meta property="og:description" content={toPlainText(bio)}/>
+      </Head>
       <div className="w-full md:w-1/2 flex flex-col space-y-4 p-4">
         <div>
           <h1 className="font-bold text-2xl">{name}</h1>
