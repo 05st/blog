@@ -1,3 +1,5 @@
+import Head from "next/head";
+
 import client from "../../client";
 import imageUrlBuilder from "@sanity/image-url";
 import BlockContent from "@sanity/block-content-to-react";
@@ -51,6 +53,13 @@ function Post(props) {
 
   return (
     <div className="relative top-16 space-y-4 flex flex-col p-4 items-center">
+      <Head>
+        <title>{props.title} | Blog</title>
+        <meta property="og:title" content={props.title + " | Blog"} key="title"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:site_name" content="blog.stimsina.com"/>
+        <meta property="og:description" content={props.description}/>
+      </Head>
       <div className="flex flex-col w-full lg:w-1/2">
         <p className="text-gray-300">{categories && categories.join(", ")}</p>
         <h1 className="font-bold text-4xl">{title}</h1>
