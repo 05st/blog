@@ -7,7 +7,7 @@ function urlFor(source) {
 }
 
 function PostListing(props) {
-  const { authorName = "", authorImage = "", desc, title, slug, updatedAt, categories } = props;
+  const { authorName = "", authorImage = "", desc, title, slug, publishedAt, categories = []} = props;
 
   return (
     <>
@@ -28,7 +28,7 @@ function PostListing(props) {
                   )}
                 </div>
                 <p className="text-sm">
-                  <span className="font-bold">Updated</span> {new Date(updatedAt).toDateString()}
+                  <span className="font-bold">Published</span> {new Date(publishedAt).toDateString()}
                 </p>
               </div>
             </div>
@@ -72,7 +72,7 @@ Index.getInitialProps = async () => ({
         "authorName": author->name,
         "categories": categories[]->title,
         "authorImage": author->image,
-        "updatedAt": _updatedAt,
+        publishedAt,
       }
     `)
 })

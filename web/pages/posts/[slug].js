@@ -1,21 +1,37 @@
 import client from "../../client";
 import imageUrlBuilder from "@sanity/image-url";
 import BlockContent from "@sanity/block-content-to-react";
-import Latex from "react-latex";
+
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { docco as syntaxTheme } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import remarkRehype from "remark-rehype";
 import "github-markdown-css";
-import 'katex/dist/katex.min.css'
+
+function CodeBlock({node, inline, className, children, ...props}) {
+  const match = /language-(\w+)/.exec(className || '')
+  return !inline && match ? (
+    <SyntaxHighlighter style={syntaxTheme} language={match[1]} PreTag="div" children={String(children).replace(/\n$/, '')} {...props} />
+  ) : (
+    <code className={className} {...props}>
+      {children}
+    </code>
+  )
+}
 
 const serializers = {
   types: {
-    code: (props) => (
-      <SyntaxHighlighter language={props.node.language} style={docco}>
-        {props.node.code}
-      </SyntaxHighlighter>
-    ),
-    latex: (props) => (
-      <Latex>{"$"+props.node.body+"$"}</Latex>
+    document: (props) => (
+      <Markdown
+        className="markdown-body"
+        remarkPlugins={[remarkGfm, remarkMath, remarkRehype]}
+        rehypePlugins={[rehypeKatex]}
+        components={{code: CodeBlock}}>
+        {props.node.markdown}
+      </Markdown>
     ),
   },
 };
@@ -34,32 +50,31 @@ function Post(props) {
   } = props;
 
   return (
-    <article>
-      <h1>{title}</h1>
-      <span>By {name}</span>
-
-      {authorImage && (
-        <div>
-          <img src={urlFor(authorImage).width(50).url()}/>
+    <div className="relative top-16 space-y-4 flex flex-col p-4 items-center">
+      <div className="flex flex-col w-full lg:w-1/2">
+        <p className="text-gray-300">{categories && categories.join(", ")}</p>
+        <h1 className="font-bold text-4xl">{title}</h1>
+        <div className="flex flex-row space-x-2">
+          <p><span className="font-bold">By</span> {name}</p>
+          {authorImage && (
+            <div className="rounded-full overflow-hidden w-6 h-6">
+              <img src={urlFor(authorImage).url()}/>
+            </div>
+          )}
         </div>
-      )}
-
-      {categories && (
-        <ul>
-          Posted in
-          {categories.map(category => <li key={category}>{category}</li>)}
-        </ul>
-      )}
-      <div>
-        <BlockContent
-          className="markdown-body"
-          blocks={content}
-          imageOptions={{ w: 320, h: 240, fit: 'max' }}
-          serializers={serializers}
-          {...client.config()}
-        />
       </div>
-    </article>
+      <div className="flex flex-col items-center">
+        <div className="w-full lg:w-1/2">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous"/>
+          <BlockContent
+            blocks={content}
+            imageOptions={{ w: 320, h: 240, fit: 'max' }}
+            serializers={serializers}
+            {...client.config()}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 

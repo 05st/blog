@@ -1,4 +1,5 @@
 import React from 'react'
+
 const mathInlineIcon = () => (
   <span>
     <span style={{ fontWeight: 'bold' }}>∑</span>b
@@ -55,6 +56,7 @@ export default {
       title: 'Description',
       type: 'text',
     },
+    /*
     {
       name: 'content',
       type: 'array',
@@ -69,6 +71,18 @@ export default {
         },
         { type: 'latex', title: 'LaTeX Block', icon: mathIcon },
         { type: 'code', title: 'Code Block' },
+      ],
+    },
+    */
+    {
+      type: 'document',
+      name: 'content',
+      title: 'Content',
+      fields: [
+        {
+          type: 'markdown',
+          name: 'markdown',
+        }
       ],
     },
   ],

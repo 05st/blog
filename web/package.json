@@ -17,9 +17,13 @@
     "github-markdown-css": "^4.0.0",
     "next": "^11.1.0",
     "next-transpile-modules": "^8.0.0",
-    "react-latex": "^2.0.0",
     "react-latex-next": "^2.1.0",
-    "react-syntax-highlighter": "^15.4.4"
+    "react-markdown": "^7.0.1",
+    "react-syntax-highlighter": "^15.4.4",
+    "rehype-katex": "^6.0.1",
+    "remark-gfm": "^2.0.0",
+    "remark-math": "^5.1.0",
+    "remark-rehype": "^9.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.3",
