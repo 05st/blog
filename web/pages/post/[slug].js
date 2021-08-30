@@ -29,6 +29,7 @@ const serializers = {
   types: {
     document: (props) => (
       <Markdown
+        linkTarget="_blank"
         className="markdown-body"
         remarkPlugins={[remarkGfm, remarkMath, remarkRehype]}
         rehypePlugins={[rehypeKatex]}
