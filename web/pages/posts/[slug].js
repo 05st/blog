@@ -45,6 +45,7 @@ function urlFor(source) {
 function Post(props) {
   const {
     title = "Missing title",
+    desc = "Missing description",
     name = "Missing name",
     categories,
     authorImage,
@@ -54,11 +55,11 @@ function Post(props) {
   return (
     <div className="relative top-16 space-y-4 flex flex-col p-4 items-center">
       <Head>
-        <title>{props.title} | Blog</title>
-        <meta property="og:title" content={props.title + " | Blog"} key="title"/>
+        <title>{title} | Blog</title>
+        <meta property="og:title" content={title + " | Blog"} key="title"/>
         <meta property="og:type" content="website"/>
         <meta property="og:site_name" content="blog.stimsina.com"/>
-        <meta property="og:description" content={props.description}/>
+        <meta property="og:description" content={desc}/>
       </Head>
       <div className="flex flex-col w-full lg:w-1/2">
         <p className="text-gray-300">{categories && categories.join(", ")}</p>
@@ -89,6 +90,7 @@ function Post(props) {
 
 const query = `*[_type == "post" && slug.current == $slug][0]{
   title,
+  desc,
   "name": author->name,
   "categories": categories[]->title,
   "authorImage": author->image,
