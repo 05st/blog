@@ -65,7 +65,7 @@ const query = `*[_type == "author" && slug.current == $slug][0]{
   name,
   image,
   bio,
-  "posts": *[_type == "post" && author->slug.current == $slug && publishedAt < now()]|order(publishedAt desc){
+  "posts": *[_type == "post" && author->slug.current == $slug]|order(publishedAt desc){
       title,
       slug,
       desc,

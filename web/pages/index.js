@@ -23,10 +23,11 @@ function Index(props) {
 
 Index.getInitialProps = async () => ({
     posts: await client.fetch(`
-      *[_type == "post" && publishedAt < now()]|order(publishedAt desc)|{
+      *[_type == "post"]|order(publishedAt desc)|{
         title,
         slug,
         desc,
+        "id": _id,
         "authorName": author->name,
         "authorSlug": author->slug,
         "categories": categories[]->title,
