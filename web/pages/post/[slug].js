@@ -14,6 +14,9 @@ import rehypeKatex from "rehype-katex";
 import remarkRehype from "remark-rehype";
 import "github-markdown-css";
 
+import Comments from '../../components/comments'
+import CommentForm from '../../components/commentform'
+
 function CodeBlock({node, inline, className, children, ...props}) {
   const match = /language-(\w+)/.exec(className || '')
   return !inline && match ? (
@@ -46,12 +49,14 @@ function urlFor(source) {
 
 function Post(props) {
   const {
+    id,
     title = "Missing title",
     desc = "Missing description",
     name = "Missing author name",
     categories = [],
     authorImage = "",
     authorSlug = "",
+    comments = [],
     content = []
   } = props;
 
@@ -67,7 +72,7 @@ function Post(props) {
       <div className="flex flex-col w-full space-y-4 lg:w-1/2">
         <div>
           <p className="text-gray-300">{categories && categories.sort().join(", ")}</p>
-          <h1 className="font-bold text-4xl">{title}</h1>
+          <h1 className="font-bold text-4xl mb-2">{title}</h1>
           <div className="flex flex-row space-x-2">
             <p><span className="font-bold">By </span>
               <Link href="/author/[slug]" as={`/author/${authorSlug.current}`}>
@@ -91,6 +96,8 @@ function Post(props) {
             />
         </div>
       </div>
+      <Comments comments={comments}/>
+      <CommentForm _id={id}/>
     </div>
   );
 }
@@ -98,10 +105,18 @@ function Post(props) {
 const query = `*[_type == "post" && slug.current == $slug][0]{
   title,
   desc,
+  "id": _id,
   "name": author->name,
   "categories": categories[]->title,
   "authorImage": author->image,
   "authorSlug": author->slug,
+  "comments": *[_type == "comment" && post._ref == ^._id && approved == true] {
+      _id,
+      name,
+      email,
+      comment,
+      _createdAt
+    },
   content
 }`;
 
