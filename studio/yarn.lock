@@ -9262,6 +9262,11 @@
     "react-mde" "^11.5.0"
     "remark-gfm" "^1.0.0"
 
+"sanity@^2.29.3":
+  "integrity" "sha512-k4A4MzAcCp7VzdvnbQQRkmmuQuXL2jsxwmH0fzCU0uyPWi+DZDQFsZKuoxhDscTOHOhRcZh0+z1EIFs4wRbSzg=="
+  "resolved" "https://registry.npmjs.org/sanity/-/sanity-2.29.3.tgz"
+  "version" "2.29.3"
+
 "sax@~1.2.4":
   "integrity" "sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw=="
   "resolved" "https://registry.npmjs.org/sax/-/sax-1.2.4.tgz"

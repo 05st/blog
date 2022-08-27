@@ -14,6 +14,7 @@
   "dependencies": {
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.16.0",
+    "date-fns": "^2.29.2",
     "github-markdown-css": "^4.0.0",
     "next": "^11.1.4",
     "next-transpile-modules": "^8.0.0",

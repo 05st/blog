@@ -24,20 +24,10 @@ export default function CommentForm({_id}) {
     }
   
     if (isSubmitting) {
-      return <h3>Submitting comment</h3>
+      return <h3 className="font-bold">Submitting comment...</h3>
     }
     if (hasSubmitted) {
-      return (
-      <>
-        <h3>Comment submitted</h3>
-        <ul>
-          <li>
-            Name: {formData.name} <br />
-            Email: {formData.email} <br />
-            Comment: {formData.comment}
-          </li>
-        </ul>
-      </>)
+      return <h3 className="font-bold">Comment submitted, refresh page.</h3>
     }
   
     return (
@@ -57,7 +47,7 @@ export default function CommentForm({_id}) {
         </label>
         {/* errors will return when field validation fails  */}
         {errors.exampleRequired && <span>This field is required</span>}
-        <input value="Submit Comment" type="submit" className="cursor-pointer shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" />
+        <input value="Post Comment" type="submit" className="cursor-pointer shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" />
       </form>
     )
 } 
