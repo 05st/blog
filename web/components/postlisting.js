@@ -7,8 +7,6 @@ function urlFor(source) {
 }
 
 function PostListing(props) {
-  console.log(props);
-
   const { authorName = "", authorSlug = "", authorImage = "", desc, title, slug, publishedAt, categories = [] } = props;
 
   return (

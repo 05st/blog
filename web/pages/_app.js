@@ -1,6 +1,8 @@
 import "tailwindcss/tailwind.css"
 
+import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 function NavButton(props) {
@@ -30,6 +32,7 @@ function NavBar() {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous" />
       <div className="p-2 mr-4 inline-flex items-center">
           <div className="flex flex-cols h-8 space-x-2">
+            <img src="/image/logo.png" alt="Logo"/>
             <Link href="/">
               <a className="text-xl font-bold">
                 <h1>blog.stimsina.com</h1>
@@ -57,6 +60,9 @@ function NavBar() {
 export default function App({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <link rel="shortcut icon" href="/image/favicon.ico"/>
+      </Head>
       <NavBar/>
       <Component {...pageProps}/>
     </>
